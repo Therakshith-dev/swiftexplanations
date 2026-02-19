@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CLLocationCoordinate2D</title>
+
+<style>
+:root {
+  --bg: #ffffff;
+  --text: #111111;
+  --card: #f5f5f7;
+  --accent: #007aff;
+}
+
+body.dark {
+  --bg: #0f0f11;
+  --text: #f2f2f2;
+  --card: #1c1c1f;
+  --accent: #4da3ff;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding: 40px;
+  transition: 0.2s ease;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--text);
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+pre {
+  background: var(--card);
+  padding: 15px;
+  overflow-x: auto;
+}
+
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem("theme");
+  if (saved === "dark") document.body.classList.add("dark");
+
+  document.getElementById("theme-toggle").onclick = () => {
+    document.body.classList.toggle("dark");
+    localStorage.setItem(
+      "theme",
+      document.body.classList.contains("dark") ? "dark" : "light"
+    );
+  };
+});
+</script>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="topbar">
+    <h1>CLLocationCoordinate2D</h1>
+    <button id="theme-toggle">Toggle Theme</button>
+  </div>
+
+  <a href="../index.html">← Back to Home</a>
+
+  <h2>What it is</h2>
+  <p>
+    <strong>CLLocationCoordinate2D</strong> is a struct from the Core Location framework.
+    It represents a single geographic point using latitude and longitude.
+  </p>
+
+  <h2>Type Alias</h2>
+  <pre><code>typealias CLLocationDegrees = Double</code></pre>
+
+  <h2>Example</h2>
+  <pre><code>let coordinate = CLLocationCoordinate2D(
+    latitude: 12.9716,
+    longitude: 77.5946
+)</code></pre>
+
+</div>
+
+</body>
+</html>
