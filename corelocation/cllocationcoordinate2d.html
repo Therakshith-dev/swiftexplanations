@@ -53,12 +53,20 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 pre {
   background: var(--card);
   padding: 15px;
   overflow-x: auto;
+  border-radius: 6px;
 }
 
+code {
+  font-family: Menlo, monospace;
+}
 </style>
 
 <script>
@@ -87,20 +95,71 @@ document.addEventListener("DOMContentLoaded", () => {
 
   <a href="../index.html">← Back to Home</a>
 
-  <h2>What it is</h2>
+  <h2>Import Required</h2>
+  <pre><code>import CoreLocation</code></pre>
+
+  <h2>What It Is</h2>
   <p>
-    <strong>CLLocationCoordinate2D</strong> is a struct from the Core Location framework.
-    It represents a single geographic point using latitude and longitude.
+    <strong>CLLocationCoordinate2D</strong> is a struct from Apple's Core Location framework.
+    It represents a single geographic point on Earth using latitude and longitude.
   </p>
 
-  <h2>Type Alias</h2>
-  <pre><code>typealias CLLocationDegrees = Double</code></pre>
+  <h2>Under The Hood</h2>
+  <p>
+    Internally, it is defined roughly like this:
+  </p>
+
+  <pre><code>public struct CLLocationCoordinate2D {
+    public var latitude: CLLocationDegrees
+    public var longitude: CLLocationDegrees
+}</code></pre>
+
+  <p>
+    And:
+  </p>
+
+  <pre><code>public typealias CLLocationDegrees = Double</code></pre>
+
+  <p>
+    This means it is simply two <strong>Double</strong> values grouped together.
+    There is no GPS logic inside this struct.
+  </p>
+
+  <h2>What It Does NOT Do</h2>
+  <ul>
+    <li>It does not fetch location data.</li>
+    <li>It does not request permissions.</li>
+    <li>It does not communicate with GPS hardware.</li>
+  </ul>
+
+  <p>
+    It is purely a data container for coordinates.
+  </p>
+
+  <h2>Who Actually Gets The Location?</h2>
+  <p>
+    Location data is retrieved using:
+  </p>
+
+  <pre><code>CLLocationManager</code></pre>
+
+  <p>
+    That returns a <code>CLLocation</code> object, which contains:
+  </p>
+
+  <pre><code>location.coordinate</code></pre>
 
   <h2>Example</h2>
-  <pre><code>let coordinate = CLLocationCoordinate2D(
+
+  <pre><code>import CoreLocation
+
+let coordinate = CLLocationCoordinate2D(
     latitude: 12.9716,
     longitude: 77.5946
-)</code></pre>
+)
+
+print(coordinate.latitude)
+print(coordinate.longitude)</code></pre>
 
 </div>
 
