@@ -9,15 +9,15 @@
 :root {
   --bg: #ffffff;
   --text: #111111;
-  --card: #f5f5f7;
-  --accent: #007aff;
+  --accent: #ff3b30;
+  --muted: #666;
 }
 
 body.dark {
-  --bg: #0f0f11;
-  --text: #f2f2f2;
-  --card: #1c1c1f;
-  --accent: #4da3ff;
+  --bg: #0d0d0f;
+  --text: #f5f5f7;
+  --accent: #ff453a;
+  --muted: #999;
 }
 
 body {
@@ -25,12 +25,13 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
   color: var(--text);
-  padding: 40px;
+  padding: 60px 30px;
   transition: 0.2s ease;
+  line-height: 1.6;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 750px;
   margin: auto;
 }
 
@@ -38,34 +39,55 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
 }
 
 button {
-  background: var(--card);
+  background: transparent;
+  border: 1px solid var(--muted);
   color: var(--text);
-  border: 1px solid var(--text);
   padding: 6px 12px;
   cursor: pointer;
 }
 
 a {
-  color: var(--accent);
   text-decoration: none;
+  color: var(--muted);
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--accent);
 }
 
-pre {
-  background: var(--card);
-  padding: 15px;
-  overflow-x: auto;
-  border-radius: 6px;
+h1 {
+  font-weight: 600;
 }
 
-code {
+h2 {
+  margin-top: 40px;
+  font-weight: 500;
+}
+
+.keyword {
   font-family: Menlo, monospace;
+  color: var(--accent);
+}
+
+.code-inline {
+  font-family: Menlo, monospace;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+}
+
+.block {
+  font-family: Menlo, monospace;
+  background: transparent;
+  padding: 10px 0;
+  white-space: pre;
+}
+
+.muted {
+  color: var(--muted);
 }
 </style>
 
@@ -88,78 +110,68 @@ document.addEventListener("DOMContentLoaded", () => {
 <body>
 
 <div class="container">
+
   <div class="topbar">
     <h1>CLLocationCoordinate2D</h1>
-    <button id="theme-toggle">Toggle Theme</button>
+    <button id="theme-toggle">Theme</button>
   </div>
 
-  <a href="../index.html">← Back to Home</a>
+  <a href="../index.html">← Back</a>
 
-  <h2>Import Required</h2>
-  <pre><code>import CoreLocation</code></pre>
+  <h2>Import</h2>
+  <div class="block">
+<span class="keyword">import</span> CoreLocation
+  </div>
 
   <h2>What It Is</h2>
   <p>
-    <strong>CLLocationCoordinate2D</strong> is a struct from Apple's Core Location framework.
-    It represents a single geographic point on Earth using latitude and longitude.
+    <span class="keyword">CLLocationCoordinate2D</span> is a 
+    <span class="keyword">struct</span> from Core Location.
+    It represents a single geographic point using latitude and longitude.
   </p>
 
   <h2>Under The Hood</h2>
-  <p>
-    Internally, it is defined roughly like this:
-  </p>
+  <div class="block">
+<span class="keyword">public struct</span> CLLocationCoordinate2D {
+    <span class="keyword">public var</span> latitude: CLLocationDegrees
+    <span class="keyword">public var</span> longitude: CLLocationDegrees
+}
+  </div>
 
-  <pre><code>public struct CLLocationCoordinate2D {
-    public var latitude: CLLocationDegrees
-    public var longitude: CLLocationDegrees
-}</code></pre>
+  <div class="block">
+<span class="keyword">typealias</span> CLLocationDegrees = Double
+  </div>
 
-  <p>
-    And:
-  </p>
-
-  <pre><code>public typealias CLLocationDegrees = Double</code></pre>
-
-  <p>
-    This means it is simply two <strong>Double</strong> values grouped together.
-    There is no GPS logic inside this struct.
+  <p class="muted">
+    It is simply two Double values grouped together. 
+    No GPS logic exists inside this struct.
   </p>
 
   <h2>What It Does NOT Do</h2>
-  <ul>
-    <li>It does not fetch location data.</li>
-    <li>It does not request permissions.</li>
-    <li>It does not communicate with GPS hardware.</li>
-  </ul>
-
   <p>
-    It is purely a data container for coordinates.
+    It does not fetch location.  
+    It does not request permission.  
+    It does not talk to hardware.
   </p>
 
-  <h2>Who Actually Gets The Location?</h2>
+  <h2>Who Gets The Location?</h2>
   <p>
-    Location data is retrieved using:
+    <span class="keyword">CLLocationManager</span> communicates with the system.
+    It returns a <span class="keyword">CLLocation</span> object,
+    which contains:
   </p>
 
-  <pre><code>CLLocationManager</code></pre>
-
-  <p>
-    That returns a <code>CLLocation</code> object, which contains:
-  </p>
-
-  <pre><code>location.coordinate</code></pre>
+  <div class="block">
+location.coordinate
+  </div>
 
   <h2>Example</h2>
-
-  <pre><code>import CoreLocation
-
-let coordinate = CLLocationCoordinate2D(
+  <div class="block">
+<span class="keyword">let</span> coordinate = CLLocationCoordinate2D(
     latitude: 12.9716,
     longitude: 77.5946
 )
-
-print(coordinate.latitude)
-print(coordinate.longitude)</code></pre>
+  </div>
 
 </div>
 
